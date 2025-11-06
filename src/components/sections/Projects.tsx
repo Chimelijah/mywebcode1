@@ -1,5 +1,7 @@
 import { ExternalLink, Github } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import cloudNetwork from "@/assets/cloud-network.jpg";
+import projectBlueprint from "@/assets/project-blueprint.jpg";
 
 const Projects = () => {
   const projects = [
@@ -31,7 +33,17 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-24 relative">
-      <div className="container mx-auto px-6">
+      {/* Cloud Network Banner */}
+      <div className="w-full h-64 md:h-80 mb-16 relative overflow-hidden">
+        <img 
+          src={cloudNetwork} 
+          alt="Cloud Architecture Network" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+      </div>
+
+      <div className="container mx-auto px-6 -mt-32 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">
@@ -49,10 +61,20 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Card 
                 key={index}
-                className="p-6 border-border hover:border-primary/50 transition-all duration-300 group animate-slide-up flex flex-col"
+                className="p-0 border-border hover:border-primary/50 transition-all duration-300 group animate-slide-up flex flex-col overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex-1">
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={projectBlueprint} 
+                    alt={`${project.title} Blueprint`} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                </div>
+
+                <div className="flex-1 p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

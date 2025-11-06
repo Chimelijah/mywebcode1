@@ -1,4 +1,5 @@
 import { Shield, Cloud, Code, Target } from "lucide-react";
+import aboutTimeline from "@/assets/about-timeline.jpg";
 
 const About = () => {
   const highlights = [
@@ -26,7 +27,17 @@ const About = () => {
 
   return (
     <section id="about" className="py-24 relative">
-      <div className="container mx-auto px-6">
+      {/* Timeline Banner */}
+      <div className="w-full h-64 md:h-80 mb-16 relative overflow-hidden">
+        <img 
+          src={aboutTimeline} 
+          alt="Academic and Professional Journey" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+      </div>
+
+      <div className="container mx-auto px-6 -mt-32 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">

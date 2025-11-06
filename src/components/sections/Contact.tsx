@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import contactConnection from "@/assets/contact-connection.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -62,8 +63,18 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 relative">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-24 relative overflow-hidden">
+      {/* Background Connection Visual */}
+      <div className="absolute inset-0">
+        <img 
+          src={contactConnection} 
+          alt="Network Connection Background" 
+          className="w-full h-full object-cover opacity-10"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in text-center">

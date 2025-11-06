@@ -1,6 +1,8 @@
 import { Shield, Lock, Terminal } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import ctfWarroom from "@/assets/ctf-warroom.jpg";
+import lessonsLearned from "@/assets/lessons-learned.jpg";
 
 const Labs = () => {
   const labs = [
@@ -71,16 +73,27 @@ const Labs = () => {
                   className="border border-border rounded-lg overflow-hidden bg-card animate-slide-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline group">
-                    <div className="flex items-center gap-4 text-left">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                        <Icon className="text-primary" size={24} />
+                  <AccordionTrigger className="p-0 hover:no-underline group">
+                    {/* Challenge Header with War Room Image */}
+                    <div className="relative w-full overflow-hidden">
+                      <div className="absolute inset-0">
+                        <img 
+                          src={ctfWarroom} 
+                          alt="CTF Challenge War Room" 
+                          className="w-full h-full object-cover opacity-30"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-background/95 to-background/70" />
                       </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {lab.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">{lab.platform}</p>
+                      <div className="relative flex items-center gap-4 text-left px-6 py-4">
+                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                          <Icon className="text-primary" size={24} />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {lab.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">{lab.platform}</p>
+                        </div>
                       </div>
                     </div>
                   </AccordionTrigger>
@@ -132,26 +145,42 @@ const Labs = () => {
             })}
           </Accordion>
 
-          {/* CTF Platforms */}
-          <div className="mt-12 text-center animate-fade-in">
-            <p className="text-muted-foreground mb-4">More challenges on:</p>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <a 
-                href="https://tryhackme.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors"
-              >
-                TryHackMe
-              </a>
-              <a 
-                href="https://hackthebox.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors"
-              >
-                Hack The Box
-              </a>
+          {/* Lessons Learned Section */}
+          <div className="mt-16 relative rounded-lg overflow-hidden animate-fade-in">
+            <div className="absolute inset-0">
+              <img 
+                src={lessonsLearned} 
+                alt="Security Lessons Learned" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/70" />
+            </div>
+            <div className="relative p-8 md:p-12 text-center">
+              <h3 className="font-serif text-2xl md:text-3xl mb-4 text-foreground">
+                Continuous Learning in Cybersecurity
+              </h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+                Each challenge reinforces defense in depth, the importance of proper authentication, 
+                and the critical need for secure configurations. From vulnerability discovery to system fortification.
+              </p>
+              <div className="flex justify-center gap-4 flex-wrap">
+                <a 
+                  href="https://tryhackme.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:shadow-[var(--shadow-glow)] transition-all"
+                >
+                  TryHackMe
+                </a>
+                <a 
+                  href="https://hackthebox.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:shadow-[var(--shadow-glow)] transition-all"
+                >
+                  Hack The Box
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { GraduationCap, Briefcase, Award, Wrench } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import skillsCertifications from "@/assets/skills-certifications.jpg";
 
 const Resume = () => {
   const experience = [
@@ -184,9 +185,20 @@ const Resume = () => {
 
             {/* Skills Tab */}
             <TabsContent value="skills">
-              <div className="flex items-center gap-3 mb-8">
-                <Wrench className="text-primary" size={28} />
-                <h3 className="font-serif text-2xl md:text-3xl">Skills & Tools</h3>
+              {/* Skills Header with Background */}
+              <div className="relative mb-8 rounded-lg overflow-hidden">
+                <div className="absolute inset-0">
+                  <img 
+                    src={skillsCertifications} 
+                    alt="Technical Skills Background" 
+                    className="w-full h-full object-cover opacity-20"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
+                </div>
+                <div className="relative flex items-center gap-3 p-6">
+                  <Wrench className="text-primary" size={28} />
+                  <h3 className="font-serif text-2xl md:text-3xl">Skills & Tools</h3>
+                </div>
               </div>
               
               <div className="space-y-8">
