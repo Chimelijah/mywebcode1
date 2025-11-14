@@ -1,11 +1,28 @@
 import { useState } from "react";
-import { Mail, Phone, Linkedin, Github, ExternalLink } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, ExternalLink, Loader2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import contactConnection from "@/assets/contact-connection.jpg";
+import emailjs from '@emailjs/browser';
+import { z } from 'zod';
+
+const contactFormSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be less than 255 characters"),
+  message: z.string()
+    .trim()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters")
+});
 
 const Contact = () => {
   const { toast } = useToast();
@@ -14,25 +31,65 @@ const Contact = () => {
     email: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialize EmailJS with your public key
+  emailjs.init("OVAtgRv9wZX1jnkSO");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:elijahchimera01@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    toast({
-      title: "Opening email client...",
-      description: "Your default email application will open with the message.",
-    });
-    
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
+    // Validate form data
+    try {
+      const validatedData = contactFormSchema.parse(formData);
+      
+      setIsSubmitting(true);
+      
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        'service_c41onxj',      // Your Service ID
+        'template_bjh23vv',     // Your Template ID
+        {
+          from_name: validatedData.name,
+          from_email: validatedData.email,
+          message: validatedData.message,
+          to_email: 'elijahchimera01@gmail.com'
+        },
+        'OVAtgRv9wZX1jnkSO'     // Your Public Key
+      );
+      
+      console.log('Email sent successfully:', result);
+      
+      // Show success message
+      toast({
+        title: "Message sent successfully! ✨",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+      
+      // Reset form only on success
+      setFormData({ name: "", email: "", message: "" });
+      
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Handle validation errors
+        const firstError = error.errors[0];
+        toast({
+          title: "Validation Error",
+          description: firstError.message,
+          variant: "destructive",
+        });
+      } else {
+        // Handle EmailJS errors
+        console.error('EmailJS error:', error);
+        toast({
+          title: "Failed to send message",
+          description: "Please try again or contact me directly via email.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -136,9 +193,17 @@ const Contact = () => {
                 </div>
                 <Button 
                   type="submit"
-                  className="w-full bg-primary text-primary-foreground hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-primary-foreground hover:shadow-[var(--shadow-glow)] transition-all duration-300 disabled:opacity-50"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
               </form>
             </Card>
