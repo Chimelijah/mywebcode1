@@ -44,6 +44,34 @@ const Labs = () => {
         "Authentication is Essential: Any networked service must have proper authentication",
         "Default Configuration Risks: Default and weak configurations are common attack paths"
       ]
+    },
+    {
+      title: "RootMe Room",
+      platform: "TryHackMe",
+      icon: Terminal,
+      problem: "Gain root access to a vulnerable Linux machine in this beginner CTF room focused on web exploitation and privilege escalation.",
+      approach: "Scanned ports to identify SSH and Apache services. Enumerated web directories to find a file upload panel. Bypassed PHP upload restrictions by using a .php5 extension for a reverse shell payload. Obtained a www-data shell, upgraded it to interactive TTY, and retrieved the user flag. Identified SUID Python binary and exploited it to spawn a root shell, capturing the root flag.",
+      tools: ["Nmap", "Gobuster", "Burp Suite", "Netcat", "Python"],
+      lessons: [
+        "Extension manipulation can bypass simplistic file upload filters",
+        "SUID binaries like Python offer straightforward privesc paths if permissions are retained",
+        "Upgrading shells to full TTY enhances usability in restricted environments",
+        "Thorough recon uncovers hidden attack surfaces early"
+      ]
+    },
+    {
+      title: "Expressway Machine",
+      platform: "Hack The Box",
+      icon: Shield,
+      problem: "Achieve full root ownership of this easy Linux machine, emphasizing network service enumeration and privilege escalation.",
+      approach: "Conducted TCP and UDP Nmap scans to discover services including IKEv1 on UDP 500. Used ike-scan to capture PSK hash from Aggressive Mode responses. Cracked the PSK offline to gain SSH access as user 'ike' and retrieve the user flag. Enumerated local system, identifying vulnerable sudo version. Exploited CVE-2025-32463 (chroot escape in sudo) to escalate to root and capture the root flag.",
+      tools: ["Nmap", "Ike-scan", "Hashcat/John the Ripper", "SSH", "Custom exploit script"],
+      lessons: [
+        "UDP scans are essential, as they reveal overlooked services like IKE/ISAKMP",
+        "PSK cracking via ike-scan can unlock credential-based access in VPN setups",
+        "Routine checks like sudo -V expose exploitable versions for privesc",
+        "Combining network and local enumeration accelerates compromise in real-world scenarios"
+      ]
     }
   ];
 
