@@ -1,8 +1,8 @@
 import { Shield, Lock, Terminal } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import ctfWarroom from "@/assets/ctf-warroom.jpg";
-import lessonsLearned from "@/assets/lessons-learned.jpg";
+import ctfWarroomUpdated from "@/assets/ctf-warroom-updated.jpg";
+import lessonsLearnedMatrix from "@/assets/lessons-learned-matrix.jpg";
 
 const Labs = () => {
   const labs = [
