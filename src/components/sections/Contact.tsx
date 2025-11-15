@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import contactConnection from "@/assets/contact-connection.jpg";
+import contactConnection from "@/assets/contact-connection-forest.jpg";
 import emailjs from '@emailjs/browser';
 import { z } from 'zod';
 
