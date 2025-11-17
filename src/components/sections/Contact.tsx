@@ -8,6 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import contactConnection from "@/assets/contact-connection-forest.jpg";
 import emailjs from '@emailjs/browser';
 import { z } from 'zod';
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 
 const contactFormSchema = z.object({
   name: z.string()
@@ -26,6 +28,8 @@ const contactFormSchema = z.object({
 
 const Contact = () => {
   const { toast } = useToast();
+  const { ref: contactRef, isVisible } = useScrollAnimation(0.1);
+  const parallaxRef = useParallax(0.15);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -120,19 +124,21 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background Connection Visual */}
+    <section id="contact" className="py-24 relative overflow-hidden" ref={contactRef}>
+      {/* Background with Connection Visual and Parallax */}
       <div className="absolute inset-0">
-        <img 
-          src={contactConnection} 
-          alt="Network Connection Background" 
-          className="w-full h-full object-cover opacity-10"
-        />
+        <div ref={parallaxRef} className="w-full h-full">
+          <img 
+            src={contactConnection} 
+            alt="Network Connection Background" 
+            className="w-full h-full object-cover opacity-10"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
+        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Section Title */}
           <div className="mb-16 animate-fade-in text-center">
             <h2 className="font-serif text-4xl md:text-6xl mb-4">

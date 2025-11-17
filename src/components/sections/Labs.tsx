@@ -3,8 +3,13 @@ import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ctfWarroomUpdated from "@/assets/ctf-warroom-updated.jpg";
 import lessonsLearnedMatrix from "@/assets/lessons-learned-matrix.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Labs = () => {
+  const { ref: labsRef, isVisible } = useScrollAnimation(0.1);
+  const parallaxRef = useParallax(0.2);
+  
   const labs = [
     {
       title: "OWASP Top 10 2021",
@@ -76,8 +81,8 @@ const Labs = () => {
   ];
 
   return (
-    <section id="labs" className="py-24 bg-secondary/20">
-      <div className="container mx-auto px-6">
+    <section id="labs" className="py-24 bg-secondary/20" ref={labsRef}>
+      <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">
@@ -173,14 +178,16 @@ const Labs = () => {
             })}
           </Accordion>
 
-          {/* Lessons Learned Section */}
-          <div className="mt-16 relative rounded-lg overflow-hidden animate-fade-in">
+          {/* Lessons Learned Section with Parallax */}
+          <div className="mt-16 relative rounded-lg overflow-hidden">
             <div className="absolute inset-0">
-              <img 
-                src={lessonsLearnedMatrix}
-                alt="Security Lessons Learned" 
-                className="w-full h-full object-cover"
-              />
+              <div ref={parallaxRef} className="w-full h-full">
+                <img 
+                  src={lessonsLearnedMatrix}
+                  alt="Security Lessons Learned" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/70" />
             </div>
             <div className="relative p-8 md:p-12 text-center">

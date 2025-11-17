@@ -1,8 +1,14 @@
 import { Shield, Cloud, Code, Target, Award } from "lucide-react";
 import aboutTimeline from "@/assets/about-timeline-modern.jpg";
 import skillsHolographic from "@/assets/skills-holographic.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 
 const About = () => {
+  const { ref: aboutRef, isVisible } = useScrollAnimation(0.1);
+  const { ref: skillsRef, isVisible: skillsVisible } = useScrollAnimation(0.1);
+  const parallaxRef = useParallax(0.2);
+  
   const highlights = [
     {
       icon: Cloud,
@@ -37,14 +43,16 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-24 relative" ref={aboutRef}>
       {/* Timeline Banner with Parallax */}
-      <div className="w-full h-64 md:h-80 mb-16 relative overflow-hidden">
-        <img 
-          src={aboutTimeline} 
-          alt="Academic and Professional Journey" 
-          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-        />
+      <div className={`w-full h-64 md:h-80 mb-16 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div ref={parallaxRef} className="w-full h-full">
+          <img 
+            src={aboutTimeline} 
+            alt="Academic and Professional Journey" 
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/70 to-background" />
         
         {/* Timeline Overlay */}

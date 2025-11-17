@@ -1,8 +1,13 @@
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroProfile from "@/assets/hero-profile-large.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Hero = () => {
+  const { ref: heroRef, isVisible } = useScrollAnimation(0.1);
+  const parallaxRef = useParallax(0.3);
+  
   const skills = [
     "AWS SAA",
     "CEH",
@@ -15,9 +20,9 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-purple-950/20 to-background" />
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" ref={heroRef}>
+      {/* Gradient Background with Parallax */}
+      <div ref={parallaxRef} className="absolute inset-0 z-0 bg-gradient-to-br from-background via-purple-950/20 to-background" />
       
       {/* Animated Glow Effects */}
       <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-float" />
@@ -25,7 +30,7 @@ const Hero = () => {
       
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
+        <div className={`grid lg:grid-cols-12 gap-8 items-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Profile Image - Left 2/3 */}
           <div className="lg:col-span-7 flex justify-center lg:justify-start animate-fade-in">
             <div className="relative">
