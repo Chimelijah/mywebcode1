@@ -106,7 +106,7 @@ const Labs = () => {
                     <div className="relative w-full overflow-hidden">
                       <div className="absolute inset-0">
                         <img 
-                          src={ctfWarroom} 
+                          src={ctfWarroomUpdated}
                           alt="CTF Challenge War Room" 
                           className="w-full h-full object-cover opacity-30"
                         />
@@ -177,7 +177,7 @@ const Labs = () => {
           <div className="mt-16 relative rounded-lg overflow-hidden animate-fade-in">
             <div className="absolute inset-0">
               <img 
-                src={lessonsLearned} 
+                src={lessonsLearnedMatrix}
                 alt="Security Lessons Learned" 
                 className="w-full h-full object-cover"
               />
