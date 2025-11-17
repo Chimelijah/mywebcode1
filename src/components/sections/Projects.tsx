@@ -2,8 +2,13 @@ import { ExternalLink, Github } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cloudNetworkEnhanced from "@/assets/cloud-network-enhanced.jpg";
 import projectBlueprintDesk from "@/assets/project-blueprint-desk.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Projects = () => {
+  const { ref: projectsRef, isVisible } = useScrollAnimation(0.1);
+  const parallaxRef = useParallax(0.25);
+  
   const projects = [
     {
       title: "Building a CI/CD Pipeline with AWS",
@@ -32,14 +37,16 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 relative">
-      {/* Cloud Network Banner */}
-      <div className="w-full h-64 md:h-80 mb-16 relative overflow-hidden">
-        <img 
-          src={cloudNetworkEnhanced} 
-          alt="Scalable Cloud Solutions" 
-          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-        />
+    <section id="projects" className="py-24 relative" ref={projectsRef}>
+      {/* Cloud Network Banner with Parallax */}
+      <div className={`w-full h-64 md:h-80 mb-16 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div ref={parallaxRef} className="w-full h-full">
+          <img 
+            src={cloudNetworkEnhanced} 
+            alt="Scalable Cloud Solutions" 
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-purple-900/50 to-background" />
         
         {/* Banner Text Overlay */}
@@ -66,8 +73,8 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Card 
                 key={index}
-                className="p-0 border-primary/30 hover:border-primary/60 transition-all duration-300 group animate-slide-up flex flex-col overflow-hidden hover:scale-105 hover:shadow-[var(--shadow-glow)]"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="p-0 border-primary/30 hover:border-primary/60 transition-all duration-700 group animate-slide-up flex flex-col overflow-hidden hover:scale-105 hover:shadow-[var(--shadow-glow)]"
+                style={{ animationDelay: `${index * 0.15}s` }}
               >
                 {/* Project Blueprint Image */}
                 <div className="relative h-48 overflow-hidden">
