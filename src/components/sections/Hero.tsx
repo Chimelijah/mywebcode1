@@ -1,17 +1,52 @@
 import heroProfile from "@/assets/hero-profile-new.jpg";
+import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Full Cover Background Image */}
+      {/* Full Cover Background Image - Adjusted for face visibility */}
       <div className="absolute inset-0 z-0">
         <img 
           src={heroProfile} 
           alt="Elijah Chimera - Cloud Security Professional"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-[center_20%]"
         />
-        {/* Subtle overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-background/20 to-background/40" />
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/30 to-background/60" />
+      </div>
+
+      {/* Content Layer */}
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-between min-h-screen py-20">
+        {/* Top Section - Introduction */}
+        <div className="text-center mt-20 animate-fade-in">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-2 tracking-wide">
+            Hey I'm <span className="text-primary font-bold">Elijah</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground font-light tracking-wider">
+            AWS SAA, CEH
+          </p>
+        </div>
+
+        {/* Center Section - Tagline */}
+        <div className="text-center max-w-3xl animate-fade-in animation-delay-200">
+          <p className="text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-relaxed tracking-wide">
+            Bridging the gap between{" "}
+            <span className="font-semibold text-primary">cloud architecture</span>
+            {" "}and{" "}
+            <span className="font-semibold text-primary">cybersecurity</span>.
+          </p>
+        </div>
+
+        {/* Bottom Section - CTA */}
+        <div className="mb-20 animate-fade-in animation-delay-400">
+          <Button 
+            size="lg"
+            className="text-lg px-8 py-6 rounded-full font-semibold tracking-wide hover:scale-105 transition-transform"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Hire Me
+          </Button>
+        </div>
       </div>
     </section>
   );
