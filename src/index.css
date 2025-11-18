@@ -8,47 +8,43 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dark Modern Theme with Red/Cyan/Orange */
-    --background: 0 0% 3%;
-    --foreground: 0 0% 98%;
+    /* Bold Red Theme - Inspired by Ellot Roy */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 348 90% 60%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 85% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 100% 55%;
+    --secondary: 0 0% 95%;
     --secondary-foreground: 0 0% 10%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 188 95% 50%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 85% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 348 90% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 0 85% 55%;
 
     --radius: 0.5rem;
     
-    /* Custom design tokens - Dark Red/Cyan/Orange Theme */
-    --gradient-hero: linear-gradient(90deg, hsl(0 0% 3%) 0%, hsl(348 40% 10%) 50%, hsl(188 40% 10%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 6%) 0%, hsl(0 0% 3%) 100%);
-    --gradient-orange: linear-gradient(135deg, hsl(30 100% 55%) 0%, hsl(40 100% 60%) 100%);
-    --gradient-red: linear-gradient(135deg, hsl(348 90% 60%) 0%, hsl(355 95% 70%) 100%);
-    --gradient-cyan: linear-gradient(135deg, hsl(188 95% 50%) 0%, hsl(195 100% 60%) 100%);
-    --shadow-glow: 0 0 60px hsl(348 90% 60% / 0.5);
-    --shadow-glow-orange: 0 0 50px hsl(30 100% 55% / 0.5);
-    --shadow-cyan: 0 0 50px hsl(188 95% 50% / 0.4);
-    --shadow-card: 0 15px 40px -15px hsl(0 0% 0% / 0.8);
+    /* Custom design tokens - Bold Red Theme */
+    --gradient-hero: linear-gradient(135deg, hsl(0 85% 35%) 0%, hsl(0 85% 55%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 10%) 0%, hsl(0 0% 5%) 100%);
+    --gradient-red-overlay: linear-gradient(135deg, hsl(0 85% 55% / 0.9) 0%, hsl(0 85% 35% / 0.9) 100%);
+    --shadow-glow: 0 0 80px hsl(0 85% 55% / 0.6);
+    --shadow-card: 0 20px 50px -15px hsl(0 0% 0% / 0.9);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
@@ -61,7 +57,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background: hsl(0 0% 3%);
+    background: hsl(0 0% 7%);
     background-attachment: fixed;
   }
   
@@ -72,11 +68,11 @@ All colors MUST be HSL.
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-secondary via-orange-400 to-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-red-600 to-primary bg-clip-text text-transparent;
   }
   
   .text-gradient-red {
-    @apply bg-gradient-to-r from-primary via-red-500 to-pink-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-red-500 to-primary bg-clip-text text-transparent;
   }
   
   .animate-fade-in {
