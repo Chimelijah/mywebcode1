@@ -14,12 +14,12 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#home", label: "HOME" },
-    { href: "#about", label: "ABOUT" },
-    { href: "#resume", label: "RESUME" },
-    { href: "#projects", label: "PROJECTS" },
-    { href: "#labs", label: "LABS" },
-    { href: "#contact", label: "CONTACT" },
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#resume", label: "Resume" },
+    { href: "#projects", label: "Projects" },
+    { href: "#labs", label: "Labs" },
+    { href: "#contact", label: "Contact" },
   ];
 
   return (
@@ -35,35 +35,31 @@ const Navigation = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+                className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
               >
                 {link.label}
               </a>
             ))}
-          </div>
-
-          {/* Social Links - Desktop */}
-          <div className="hidden md:flex items-center gap-4">
             <a
               href="https://www.linkedin.com/in/elijah-chimera-938718261"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
             >
-              LINKEDIN
+              LinkedIn
             </a>
             <a
               href="https://github.com/Chimelijah"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
             >
-              GITHUB
+              Github
             </a>
           </div>
 
@@ -79,33 +75,33 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pt-4 pb-6 space-y-4 animate-fade-in">
+          <div className="md:hidden pt-4 pb-6 space-y-3 animate-fade-in">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <div className="flex gap-4 pt-4 border-t border-border">
+            <div className="flex flex-col gap-3 pt-2">
               <a
                 href="https://www.linkedin.com/in/elijah-chimera-938718261"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
               >
-                LINKEDIN
+                LinkedIn
               </a>
               <a
                 href="https://github.com/Chimelijah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
               >
-                GITHUB
+                Github
               </a>
             </div>
           </div>
