@@ -6,16 +6,33 @@ const Hero = () => {
   const parallaxRef = useParallax(0.3);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Full Cover Background Image with Parallax */}
       <div className="absolute inset-0 z-0" ref={parallaxRef}>
         <img 
           src={heroProfile} 
           alt="Elijah Chimera - Cloud Security Professional"
-          className="w-full h-full object-cover object-[center_25%]"
+          className="w-full h-full object-cover object-[center_25%] scale-105"
         />
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/80" />
+      </div>
+
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        {/* Floating Particles */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary/30 rounded-full animate-float" />
+        <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-primary/20 rounded-full animate-float animation-delay-200" />
+        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-primary/25 rounded-full animate-float animation-delay-400" />
+        <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-primary/30 rounded-full animate-float" />
+        
+        {/* Glowing Orbs */}
+        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-glow" />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-glow animation-delay-200" />
+        
+        {/* Animated Lines */}
+        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent animate-pulse" />
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-pulse animation-delay-400" />
       </div>
 
       {/* Content Layer */}
