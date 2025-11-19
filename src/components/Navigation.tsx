@@ -40,7 +40,7 @@ const Navigation = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
+                className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 hover:shadow-lg transition-all duration-300"
               >
                 {link.label}
               </a>
@@ -49,7 +49,7 @@ const Navigation = () => {
               href="https://www.linkedin.com/in/elijah-chimera-938718261"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
+              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               LinkedIn
             </a>
@@ -57,7 +57,7 @@ const Navigation = () => {
               href="https://github.com/Chimelijah"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all"
+              className="px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               Github
             </a>
@@ -75,12 +75,12 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pt-4 pb-6 space-y-3 animate-fade-in">
+          <div className="md:hidden pt-4 pb-6 space-y-3 animate-slide-in-right">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 transition-all duration-300 text-center"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -91,7 +91,7 @@ const Navigation = () => {
                 href="https://www.linkedin.com/in/elijah-chimera-938718261"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 transition-all duration-300 text-center"
               >
                 LinkedIn
               </a>
@@ -99,7 +99,7 @@ const Navigation = () => {
                 href="https://github.com/Chimelijah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 transition-all text-center"
+                className="block px-6 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-foreground hover:bg-card/80 hover:border-primary/50 hover:scale-105 transition-all duration-300 text-center"
               >
                 Github
               </a>

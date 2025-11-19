@@ -1,11 +1,14 @@
 import heroProfile from "@/assets/hero-profile-new.jpg";
 import { Button } from "@/components/ui/button";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Hero = () => {
+  const parallaxRef = useParallax(0.3);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Full Cover Background Image - Adjusted for face visibility */}
-      <div className="absolute inset-0 z-0">
+      {/* Full Cover Background Image with Parallax - Adjusted for face visibility */}
+      <div className="absolute inset-0 z-0" ref={parallaxRef}>
         <img 
           src={heroProfile} 
           alt="Elijah Chimera - Cloud Security Professional"

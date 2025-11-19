@@ -2,8 +2,10 @@ import { GraduationCap, Briefcase, Award, Wrench } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import skillsCertifications from "@/assets/skills-certifications.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Resume = () => {
+  const { ref: resumeRef, isVisible } = useScrollAnimation(0.1);
   const experience = [
     {
       title: "Intern",
@@ -79,9 +81,9 @@ const Resume = () => {
   ];
 
   return (
-    <section id="resume" className="py-24 bg-secondary/20">
+    <section id="resume" className="py-24 bg-secondary/20" ref={resumeRef}>
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
+        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">
             <h2 className="font-serif text-4xl md:text-6xl mb-4">
