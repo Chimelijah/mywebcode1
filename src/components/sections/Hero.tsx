@@ -6,48 +6,48 @@ const Hero = () => {
   const parallaxRef = useParallax(0.3);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Full Cover Background Image with Parallax - Adjusted for face visibility */}
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Full Cover Background Image with Parallax */}
       <div className="absolute inset-0 z-0" ref={parallaxRef}>
         <img 
           src={heroProfile} 
           alt="Elijah Chimera - Cloud Security Professional"
-          className="w-full h-full object-cover object-[center_20%]"
+          className="w-full h-full object-cover object-[center_25%]"
         />
         {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/30 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/80" />
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-between min-h-screen py-20">
-        {/* Spacer for face */}
-        <div className="flex-1" />
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-between h-full py-20">
+        {/* Top Spacer for face visibility */}
+        <div className="flex-[0.4]" />
 
         {/* Middle Section - Introduction (below face) */}
-        <div className="text-center animate-fade-in">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-2 tracking-wide drop-shadow-lg">
+        <div className="text-center animate-fade-in flex-[0.3]">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-3 tracking-tight drop-shadow-2xl">
             Hey I'm <span className="text-primary font-bold">Elijah</span>
           </h1>
-          <p className="text-lg md:text-xl text-white font-light tracking-wider drop-shadow-lg">
+          <p className="font-sans text-xl md:text-2xl text-white/90 font-light tracking-widest drop-shadow-lg uppercase">
             AWS SAA, CEH
           </p>
         </div>
 
         {/* Tagline */}
-        <div className="text-center max-w-3xl animate-fade-in animation-delay-200 mt-8">
-          <p className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed tracking-wide drop-shadow-lg">
+        <div className="text-center max-w-3xl animate-fade-in animation-delay-200 flex-[0.2]">
+          <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed tracking-wide drop-shadow-lg italic">
             Bridging the gap between{" "}
-            <span className="font-semibold text-primary">cloud architecture</span>
+            <span className="font-bold text-primary not-italic">cloud architecture</span>
             {" "}and{" "}
-            <span className="font-semibold text-primary">cybersecurity</span>.
+            <span className="font-bold text-primary not-italic">cybersecurity</span>.
           </p>
         </div>
 
         {/* Bottom Section - CTA */}
-        <div className="mb-20 animate-fade-in animation-delay-400">
+        <div className="mb-16 animate-fade-in animation-delay-400 flex-[0.1]">
           <Button 
             size="lg"
-            className="text-lg px-8 py-6 rounded-full font-semibold tracking-wide hover:scale-105 transition-transform"
+            className="font-sans text-lg px-10 py-7 rounded-full font-bold tracking-wider hover:scale-105 transition-transform shadow-2xl"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Hire Me
