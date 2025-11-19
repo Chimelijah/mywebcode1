@@ -17,19 +17,22 @@ const Hero = () => {
 
       {/* Content Layer */}
       <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-between min-h-screen py-20">
-        {/* Top Section - Introduction */}
-        <div className="text-center mt-20 animate-fade-in">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-2 tracking-wide">
+        {/* Spacer for face */}
+        <div className="flex-1" />
+
+        {/* Middle Section - Introduction (below face) */}
+        <div className="text-center animate-fade-in">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-2 tracking-wide drop-shadow-lg">
             Hey I'm <span className="text-primary font-bold">Elijah</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground font-light tracking-wider">
+          <p className="text-lg md:text-xl text-white font-light tracking-wider drop-shadow-lg">
             AWS SAA, CEH
           </p>
         </div>
 
-        {/* Center Section - Tagline */}
-        <div className="text-center max-w-3xl animate-fade-in animation-delay-200">
-          <p className="text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-relaxed tracking-wide">
+        {/* Tagline */}
+        <div className="text-center max-w-3xl animate-fade-in animation-delay-200 mt-8">
+          <p className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed tracking-wide drop-shadow-lg">
             Bridging the gap between{" "}
             <span className="font-semibold text-primary">cloud architecture</span>
             {" "}and{" "}
