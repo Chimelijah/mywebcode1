@@ -80,9 +80,33 @@ const Labs = () => {
     }
   ];
 
+  const labsBackground = {
+    backgroundImage: `
+      radial-gradient(circle at 10% 10%, rgba(255, 0, 0, 0.18), transparent 45%),
+      radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.08), transparent 50%),
+      linear-gradient(165deg, rgba(5, 5, 5, 0.95) 30%, rgba(15, 10, 12, 0.92) 70%),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.04) 0px,
+        rgba(255,255,255,0.04) 1px,
+        transparent 1px,
+        transparent 20px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.04) 0px,
+        rgba(255,255,255,0.04) 1px,
+        transparent 1px,
+        transparent 20px
+      )
+    `,
+  } as const;
+
   return (
-    <section id="labs" className="py-24 bg-secondary/20" ref={labsRef}>
-      <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <section id="labs" className="relative py-24 overflow-hidden" ref={labsRef}>
+      <div className="absolute inset-0 -z-10" style={labsBackground} />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background/95 to-background/90" />
+      <div className={`container mx-auto px-6 transition-all duration-1000 relative ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">

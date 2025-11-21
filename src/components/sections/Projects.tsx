@@ -1,4 +1,5 @@
-import { ExternalLink, Github } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Github, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cloudNetworkEnhanced from "@/assets/cloud-network-enhanced.jpg";
 import projectBlueprintDesk from "@/assets/project-blueprint-desk.jpg";
@@ -8,6 +9,7 @@ import { useParallax } from "@/hooks/use-parallax";
 const Projects = () => {
   const { ref: projectsRef, isVisible } = useScrollAnimation(0.1);
   const parallaxRef = useParallax(0.25);
+  const [zoomProject, setZoomProject] = useState<number | null>(null);
   
   const projects = [
     {
@@ -68,81 +70,74 @@ const Projects = () => {
             </p>
           </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Projects Carousel */}
+          <div className="projects-carousel flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory">
             {projects.map((project, index) => (
-              <Card 
+              <Card
                 key={index}
-                className="p-0 border-primary/30 hover:border-primary/60 transition-all duration-700 group animate-slide-up flex flex-col overflow-hidden hover:scale-105 hover:shadow-[var(--shadow-glow)]"
-                style={{ animationDelay: `${index * 0.15}s` }}
+                className="project-card snap-center flex-shrink-0 w-[280px] md:w-[320px]"
               >
-                {/* Project Blueprint Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={projectBlueprintDesk} 
-                    alt={`${project.title} Blueprint`} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-                  
-                  {/* Yellow accent bar with project name */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
-                    <h3 className="font-bold text-background text-sm line-clamp-1">
-                      {project.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="flex-1 p-6 space-y-4">
-                  {/* Role Badge */}
-                  <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
-                    {project.role}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span 
-                        key={techIndex}
-                        className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                <div className="project-card-inner">
+                  {/* Front */}
+                  <div className="project-card-face project-card-front">
+                    <div className="relative h-48 overflow-hidden cursor-zoom-in" onClick={() => setZoomProject(index)}>
+                      <img
+                        src={projectBlueprintDesk}
+                        alt={`${project.title} Blueprint`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
+                        <h3 className="font-bold text-background text-sm line-clamp-1">{project.title}</h3>
+                      </div>
+                    </div>
+                    <div className="flex-1 p-6 space-y-4">
+                      <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
+                        {project.role}
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Outcome */}
-                  <div className="border border-primary/30 rounded-lg p-3 bg-primary/5">
-                    <p className="text-sm font-semibold text-primary mb-1">Outcome</p>
-                    <p className="text-xs text-muted-foreground">{project.outcome}</p>
+                  {/* Back */}
+                  <div className="project-card-face project-card-back">
+                    <div className="p-6 flex flex-col h-full justify-between space-y-4">
+                      <div>
+                        <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
+                        <p className="text-sm text-muted-foreground">{project.outcome}</p>
+                      </div>
+                      <div className="space-y-3">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
+                        >
+                          <ExternalLink size={16} />
+                          Read More
+                        </a>
+                        <a
+                          href="https://github.com/Chimelijah"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm"
+                        >
+                          <Github size={16} />
+                          GitHub
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                {/* Footer Links */}
-                <div className="px-6 pb-6 flex gap-4">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
-                  >
-                    <ExternalLink size={16} />
-                    Read More
-                  </a>
-                  <a
-                    href="https://github.com/Chimelijah"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm"
-                  >
-                    <Github size={16} />
-                    GitHub
-                  </a>
                 </div>
               </Card>
             ))}
@@ -162,6 +157,29 @@ const Projects = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      {zoomProject !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md animate-zoom-overlay"
+          onClick={() => setZoomProject(null)}
+        >
+          <div className="relative w-full max-w-3xl mx-4 rounded-3xl overflow-hidden bg-background zoom-image-wrapper" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition"
+              onClick={() => setZoomProject(null)}
+              aria-label="Close preview"
+            >
+              <X size={24} />
+            </button>
+            <img
+              src={projectBlueprintDesk}
+              alt="Project preview"
+              className="w-full h-full object-cover zoom-image"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Phone, Linkedin, Github, ExternalLink, Loader2 } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, ExternalLink, Loader2, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,6 +36,7 @@ const Contact = () => {
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   // Initialize EmailJS with your public key
   emailjs.init("OVAtgRv9wZX1jnkSO");
@@ -72,6 +73,8 @@ const Contact = () => {
       
       // Reset form only on success
       setFormData({ name: "", email: "", message: "" });
+      setShowSuccessToast(true);
+      setTimeout(() => setShowSuccessToast(false), 3000);
       
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -123,6 +126,12 @@ const Contact = () => {
     }
   ];
 
+  const socialIcons = [
+    { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/elijah-chimera-938718261" },
+    { icon: Github, label: "GitHub", link: "https://github.com/Chimelijah" },
+    { icon: Mail, label: "Email", link: "mailto:elijahchimera01@gmail.com" },
+  ];
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden" ref={contactRef}>
       {/* Background with Connection Visual and Parallax */}
@@ -154,9 +163,9 @@ const Contact = () => {
             {/* Contact Form */}
             <Card className="p-6 md:p-8 border-border animate-slide-up">
               <h3 className="font-serif text-2xl mb-6">Send a Message</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="floating-field">
+                  <label htmlFor="name" className="floating-label">
                     Your Name
                   </label>
                   <Input
@@ -166,11 +175,12 @@ const Contact = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Elijah Chimera"
-                    className="bg-secondary border-border focus:border-primary"
+                    className="floating-input peer"
                   />
+                  <span className="floating-underline" />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                <div className="floating-field">
+                  <label htmlFor="email" className="floating-label">
                     Your Email
                   </label>
                   <Input
@@ -180,11 +190,12 @@ const Contact = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="bg-secondary border-border focus:border-primary"
+                    className="floating-input peer"
                   />
+                  <span className="floating-underline" />
                 </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                <div className="floating-field">
+                  <label htmlFor="message" className="floating-label">
                     Your Message
                   </label>
                   <Textarea
@@ -194,8 +205,9 @@ const Contact = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell me about your opportunity or how we can work together..."
-                    className="bg-secondary border-border focus:border-primary resize-none"
+                    className="floating-textarea peer"
                   />
+                  <span className="floating-underline" />
                 </div>
                 <Button 
                   type="submit"
@@ -264,8 +276,40 @@ const Contact = () => {
               </Card>
             </div>
           </div>
+
+          {/* Social Row */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+            {socialIcons.map((social, index) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.label}
+                  href={social.link}
+                  target={social.link.startsWith("http") ? "_blank" : undefined}
+                  rel={social.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="social-link group"
+                  style={{ ["--wave-delay" as any]: `${index * 0.15}s` }}
+                >
+                  <Icon className="social-icon" size={18} />
+                  <span>{social.label}</span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      {showSuccessToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+          <div className="success-toast">
+            <CheckCircle2 size={20} />
+            <div>
+              <p className="font-semibold">Message delivered</p>
+              <p className="text-sm text-white/80">I'll be in touch shortly.</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

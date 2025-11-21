@@ -140,9 +140,36 @@ const Resume = () => {
     "Leadership", "Ethical Judgement", "Technical Writing"
   ];
 
+  const resumeBackground = {
+    backgroundImage: `
+      radial-gradient(circle at 15% 20%, rgba(255, 0, 0, 0.12), transparent 50%),
+      radial-gradient(circle at 85% 10%, rgba(255, 255, 255, 0.08), transparent 55%),
+      linear-gradient(130deg, rgba(8, 8, 8, 0.95) 30%, rgba(15, 12, 12, 0.9) 70%),
+      repeating-linear-gradient(
+        to right,
+        rgba(255,255,255,0.06) 0px,
+        rgba(255,255,255,0.06) 1px,
+        transparent 1px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.04) 0px,
+        rgba(255,255,255,0.04) 1px,
+        transparent 1px,
+        transparent 40px
+      )
+    `,
+  } as const;
+
+  const timelinePathLength = experience.length * 220;
+  const timelinePathD = `M20 20 V ${timelinePathLength}`;
+
   return (
-    <section id="resume" className="py-24 bg-secondary/20" ref={resumeRef}>
-      <div className="container mx-auto px-6">
+    <section id="resume" className="relative py-24 overflow-hidden" ref={resumeRef}>
+      <div className="absolute inset-0 -z-10" style={resumeBackground} />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/95 via-background/90 to-background" />
+      <div className="container mx-auto px-6 relative">
         <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">
@@ -166,30 +193,64 @@ const Resume = () => {
                 <Briefcase className="text-primary" size={28} />
                 <h3 className="font-serif text-2xl md:text-3xl">Work Experience</h3>
               </div>
-              {experience.map((job, index) => (
-                <Card 
-                  key={index} 
-                  className="p-6 border-border hover:border-primary/50 transition-all duration-300 animate-slide-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+              <div className="relative pl-10 md:pl-16">
+                <svg
+                  className="absolute left-0 top-0 hidden md:block"
+                  width="60"
+                  height={timelinePathLength + 40}
+                  viewBox={`0 0 60 ${timelinePathLength + 40}`}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                    <div>
-                      <h4 className="text-xl font-semibold text-foreground">{job.title}</h4>
-                      <p className="text-primary font-medium">{job.company}</p>
-                      <p className="text-sm text-muted-foreground">{job.location}</p>
+                  <path
+                    d={timelinePathD}
+                    stroke="url(#timelineGradient)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="timeline-path"
+                    style={{
+                      strokeDasharray: timelinePathLength,
+                      strokeDashoffset: isVisible ? 0 : timelinePathLength,
+                    }}
+                  />
+                  <defs>
+                    <linearGradient id="timelineGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" />
+                      <stop offset="100%" stopColor="rgba(255,255,255,0.2)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="space-y-10">
+                  {experience.map((job, index) => (
+                    <div key={index} className="relative">
+                      <div className="absolute left-[-2.75rem] top-6 hidden md:flex items-center justify-center">
+                        <span className="timeline-node">{index + 1}</span>
+                      </div>
+                      <Card
+                        className="p-6 border-border hover:border-primary/50 transition-all duration-300 animate-slide-up timeline-card"
+                        style={{ animationDelay: `${index * 0.12}s` }}
+                      >
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                          <div>
+                            <h4 className="text-xl font-semibold text-foreground">{job.title}</h4>
+                            <p className="text-primary font-medium">{job.company}</p>
+                            <p className="text-sm text-muted-foreground">{job.location}</p>
+                          </div>
+                          <span className="text-sm text-muted-foreground mt-2 md:mt-0">{job.period}</span>
+                        </div>
+                        <ul className="space-y-2">
+                          {job.achievements.map((achievement, i) => (
+                            <li key={i} className="text-muted-foreground flex items-start gap-2">
+                              <span className="text-primary mt-1.5 flex-shrink-0">▹</span>
+                              <span>{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Card>
                     </div>
-                    <span className="text-sm text-muted-foreground mt-2 md:mt-0">{job.period}</span>
-                  </div>
-                  <ul className="space-y-2">
-                    {job.achievements.map((achievement, i) => (
-                      <li key={i} className="text-muted-foreground flex items-start gap-2">
-                        <span className="text-primary mt-1.5 flex-shrink-0">▹</span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              ))}
+                  ))}
+                </div>
+              </div>
             </TabsContent>
 
             {/* Education Tab */}
