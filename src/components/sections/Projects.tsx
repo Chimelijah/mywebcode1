@@ -3,6 +3,13 @@ import { ExternalLink, Github, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cloudNetworkEnhanced from "@/assets/cloud-network-enhanced.jpg";
 import projectBlueprintDesk from "@/assets/project-blueprint-desk.jpg";
+// Existing project images
+import ciCdPipelineImg from "@/assets/ci-cd-pipeline.jpg";
+import k8sManifestImg from "@/assets/k8s-manifest.jpg";
+import terraformS3Img from "@/assets/terraform-s3.jpg";
+// New project images (replace with your actual assets)
+import aiSchedulingImg from "@/assets/ai-scheduling.jpg";
+import aiDatabaseImg from "@/assets/ai-database.jpg";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useParallax } from "@/hooks/use-parallax";
 
@@ -10,7 +17,7 @@ const Projects = () => {
   const { ref: projectsRef, isVisible } = useScrollAnimation(0.1);
   const parallaxRef = useParallax(0.25);
   const [zoomProject, setZoomProject] = useState<number | null>(null);
-  
+ 
   const projects = [
     {
       title: "Building a CI/CD Pipeline with AWS",
@@ -18,7 +25,8 @@ const Projects = () => {
       role: "DevOps Engineer",
       technologies: ["AWS CodePipeline", "AWS CodeBuild", "AWS CodeDeploy", "GitHub"],
       outcome: "Reduced time-to-deployment from manual steps to less than 5 minutes per cycle",
-      link: "https://medium.com/@elijahchimera01"
+      image: ciCdPipelineImg,
+      mediumLink: "https://medium.com/@elijahchimera01/build-a-ci-cd-pipeline-with-aws-a8445bba8ff7",
     },
     {
       title: "Create Kubernetes Manifests",
@@ -26,7 +34,8 @@ const Projects = () => {
       role: "Containerization and Orchestration Specialist",
       technologies: ["Kubernetes", "Docker", "AWS EKS", "AWS ECR", "YAML"],
       outcome: "Successfully deployed a highly available application cluster, validating environment configuration concepts",
-      link: "https://medium.com/@elijahchimera01"
+      image: k8sManifestImg,
+      mediumLink: "https://medium.com/@elijahchimera01/create-kubernetes-manifests-4947b76f3648",
     },
     {
       title: "Create S3 Buckets with Terraform",
@@ -34,30 +43,41 @@ const Projects = () => {
       role: "IaC Developer",
       technologies: ["Terraform", "AWS S3", "AWS CLI", "HCL"],
       outcome: "Created a single, idempotent script capable of deploying secure, pre-configured infrastructure",
-      link: "https://medium.com/@elijahchimera01"
+      image: terraformS3Img,
+      mediumLink: "https://medium.com/@elijahchimera01/create-s3-buckets-with-terraform-67e288c959fc",
+    },
+    {
+      title: "Building an AI Workflow using n8n",
+      description: "Developed an AI-powered scheduling assistant by building a workflow that processes natural language requests with a Large Language Model (LLM) and automatically creates events in Google Calendar.",
+      role: "AI Engineer",
+      technologies: ["n8n (automation)", "OpenAI Chat Model (GPT-4.0-mini)", "Google Calendar", "Prompt Engineering"],
+      outcome: "Successfully integrated LLM function-calling capabilities for reliable scheduling based on user chat commands",
+      image: aiSchedulingImg,
+      mediumLink: "https://medium.com/@elijahchimera01/building-an-ai-workflow-using-n8n-a6e6a5d007b7",
+    },
+    {
+      title: "Building a Database With Cursor and Supabase MCP",
+      description: "Implemented a 'likes' feature for a music web app by establishing a live, cloud-hosted database connection using AI, showcasing the Model Context Protocol (MCP). This allowed for building and querying the database using only natural language commands.",
+      role: "Backend/AI-Assisted Developer",
+      technologies: ["Cursor (AI-assisted editor)", "Supabase (cloud database)", "Model Context Protocol (MCP)", "NextSound web app"],
+      outcome: "Created a fully synced frontend/backend feature where users can interact with the database using natural language commands",
+      image: aiDatabaseImg,
+      mediumLink: "https://medium.com/@elijahchimera01/building-a-database-with-cursor-and-supabase-mcp-b8e935f8f3a7",
     }
   ];
-
   return (
     <section id="projects" className="py-24 relative" ref={projectsRef}>
       {/* Cloud Network Banner with Parallax */}
       <div className={`w-full h-64 md:h-80 mb-16 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div ref={parallaxRef} className="w-full h-full">
-          <img 
-            src={cloudNetworkEnhanced} 
-            alt="Scalable Cloud Solutions" 
+          <img
+            src={cloudNetworkEnhanced}
             className="w-full h-full object-cover"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-purple-900/50 to-background" />
-        
-        {/* Banner Text Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h3 className="text-5xl md:text-6xl font-bold text-gradient">Scalable Cloud Solutions</h3>
-        </div>
       </div>
-
-      <div className="container mx-auto px-6 -mt-32 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 -mt-32 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <div className="mb-16 animate-fade-in">
@@ -66,36 +86,50 @@ const Projects = () => {
             </h2>
             <div className="h-1 w-24 bg-gradient-to-r from-primary via-yellow-400 to-transparent" />
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-              AWS Cloud-based projects demonstrating expertise in DevOps, containerization, and Infrastructure as Code
+              Projects showcasing proven expertise in designing and deploying scalable, fault-tolerant infrastructure using AWS and Kubernetes (EKS), underpinned by disciplined Infrastructure as Code (IaC) and CI/CD practices. I specialize in accelerating development cycles by integrating modern tools like Supabase for robust backend services and leveraging n8n for sophisticated low-code workflow automation and system integration. My focus is on building efficient, automated, and secure digital platforms from development to production.
             </p>
           </div>
-
           {/* Projects Carousel */}
-          <div className="projects-carousel flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory">
+          <div
+            className="projects-carousel flex gap-4 sm:gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide"
+            role="region"
+            aria-label="Project carousel"
+          >
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="project-card snap-center flex-shrink-0 w-[280px] md:w-[320px]"
+                className="project-card snap-center flex-shrink-0 w-full sm:w-[280px] md:w-[320px] max-w-sm transition-all duration-500 hover:shadow-xl group"
+                style={{
+                  animationDelay: `${index * 0.2}s`,
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+                }}
               >
-                <div className="project-card-inner">
+                <div className="project-card-inner h-full">
                   {/* Front */}
                   <div className="project-card-face project-card-front">
-                    <div className="relative h-48 overflow-hidden cursor-zoom-in" onClick={() => setZoomProject(index)}>
+                    <div
+                      className="relative h-48 overflow-hidden cursor-zoom-in"
+                      onClick={() => setZoomProject(index)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && setZoomProject(index)}
+                    >
                       <img
-                        src={projectBlueprintDesk}
+                        src={project.image}
                         alt={`${project.title} Blueprint`}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
-                        <h3 className="font-bold text-background text-sm line-clamp-1">{project.title}</h3>
+                        <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
                       </div>
                     </div>
-                    <div className="flex-1 p-6 space-y-4">
+                    <div className="flex-1 p-4 sm:p-6 space-y-4">
                       <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
                         {project.role}
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, techIndex) => (
                           <span
@@ -108,32 +142,22 @@ const Projects = () => {
                       </div>
                     </div>
                   </div>
-
                   {/* Back */}
                   <div className="project-card-face project-card-back">
-                    <div className="p-6 flex flex-col h-full justify-between space-y-4">
+                    <div className="p-4 sm:p-6 flex flex-col h-full justify-between space-y-4">
                       <div>
                         <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
-                        <p className="text-sm text-muted-foreground">{project.outcome}</p>
+                        <p className="text-sm text-muted-foreground line-clamp-4">{project.outcome}</p>
                       </div>
                       <div className="space-y-3">
                         <a
-                          href={project.link}
+                          href={project.mediumLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
                         >
                           <ExternalLink size={16} />
                           Read More
-                        </a>
-                        <a
-                          href="https://github.com/Chimelijah"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm"
-                        >
-                          <Github size={16} />
-                          GitHub
                         </a>
                       </div>
                     </div>
@@ -142,7 +166,6 @@ const Projects = () => {
               </Card>
             ))}
           </div>
-
           {/* View All Projects Link */}
           <div className="mt-12 text-center animate-fade-in">
             <a
@@ -157,25 +180,29 @@ const Projects = () => {
           </div>
         </div>
       </div>
-
       {/* Image Zoom Modal */}
       {zoomProject !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md animate-zoom-overlay"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in"
           onClick={() => setZoomProject(null)}
+          role="dialog"
+          aria-label={`Preview of ${projects[zoomProject]?.title}`}
         >
-          <div className="relative w-full max-w-3xl mx-4 rounded-3xl overflow-hidden bg-background zoom-image-wrapper" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative w-full max-w-4xl mx-4 sm:max-w-3xl rounded-2xl overflow-hidden bg-background"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
-              className="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition"
+              className="absolute top-4 right-4 z-10 text-white/90 hover:text-white transition-all p-2 rounded-full bg-black/20"
               onClick={() => setZoomProject(null)}
               aria-label="Close preview"
             >
               <X size={24} />
             </button>
             <img
-              src={projectBlueprintDesk}
-              alt="Project preview"
-              className="w-full h-full object-cover zoom-image"
+              src={projects[zoomProject]?.image || projectBlueprintDesk}
+              alt={`Preview of ${projects[zoomProject]?.title}`}
+              className="w-full h-auto max-h-[80vh] object-contain"
             />
           </div>
         </div>
