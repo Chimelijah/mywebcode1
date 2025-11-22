@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cloudNetworkEnhanced from "@/assets/cloud-network-enhanced.jpg";
 import projectBlueprintDesk from "@/assets/project-blueprint-desk.jpg";
@@ -17,7 +17,6 @@ const Projects = () => {
   const { ref: projectsRef, isVisible } = useScrollAnimation(0.1);
   const parallaxRef = useParallax(0.25);
   const [zoomProject, setZoomProject] = useState<number | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
  
   const projects = [
     {
@@ -66,21 +65,8 @@ const Projects = () => {
       mediumLink: "https://medium.com/@elijahchimera01/building-a-database-with-cursor-and-supabase-mcp-b8e935f8f3a7",
     }
   ];
-
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section id="projects" className="py-24 relative" ref={projectsRef}>
+    <section id="projects" className="py-32 min-h-screen relative w-full" ref={projectsRef}>
       {/* Cloud Network Banner with Parallax */}
       <div className={`w-full h-64 md:h-80 mb-16 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div ref={parallaxRef} className="w-full h-full">
@@ -91,120 +77,98 @@ const Projects = () => {
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-purple-900/50 to-background" />
       </div>
-      <div className="container mx-auto px-4 sm:px-6 -mt-32 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Title */}
-          <div className="mb-16 animate-fade-in">
+      <div className="container mx-auto px-4 sm:px-6 -mt-32 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Title and Description */}
+          <div className="mb-16 animate-fade-in text-center md:text-left">
             <h2 className="font-bold text-5xl md:text-7xl mb-4">
               <span className="text-gradient">Projects</span>
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-primary via-yellow-400 to-transparent" />
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+            <div className="h-1 w-24 bg-gradient-to-r from-primary via-yellow-400 to-transparent mx-auto md:ml-0" />
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto md:mx-0">
               Projects showcasing proven expertise in designing and deploying scalable, fault-tolerant infrastructure using AWS and Kubernetes (EKS), underpinned by disciplined Infrastructure as Code (IaC) and CI/CD practices. I specialize in accelerating development cycles by integrating modern tools like Supabase for robust backend services and leveraging n8n for sophisticated low-code workflow automation and system integration. My focus is on building efficient, automated, and secure digital platforms from development to production.
             </p>
           </div>
-          {/* Projects Carousel */}
-          <div className="relative">
-            <div
-              ref={carouselRef}
-              className="projects-carousel flex gap-4 sm:gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scroll-smooth scrollbar-hide"
-              role="region"
-              aria-label="Project carousel"
-            >
-              {projects.map((project, index) => (
-                <Card
-                  key={index}
-                  className="project-card snap-center flex-shrink-0 w-full sm:w-[280px] md:w-[320px] max-w-sm transition-all duration-500 hover:shadow-xl group"
-                  style={{
-                    animationDelay: `${index * 0.2}s`,
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
-                  }}
-                >
-                  <div className="project-card-inner h-full">
-                    {/* Front */}
-                    <div className="project-card-face project-card-front">
-                      <div
-                        className="relative h-48 overflow-hidden cursor-zoom-in"
-                        onClick={() => setZoomProject(index)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === 'Enter' && setZoomProject(index)}
-                      >
-                        <img
-                          src={project.image}
-                          alt={`${project.title} Blueprint`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
-                          <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
-                        </div>
-                      </div>
-                      <div className="flex-1 p-4 sm:p-6 space-y-4">
-                        <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
-                          {project.role}
-                        </div>
-                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    {/* Back */}
-                    <div className="project-card-face project-card-back">
-                      <div className="p-4 sm:p-6 flex flex-col h-full justify-between space-y-4">
-                        <div>
-                          <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
-                          <p className="text-sm text-muted-foreground line-clamp-4">{project.outcome}</p>
-                        </div>
-                        <div className="space-y-3">
-                          <a
-                            href={project.mediumLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
-                          >
-                            <ExternalLink size={16} />
-                            Read More
-                          </a>
-                        </div>
-                      </div>
+          {/* Projects Grid */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 w-full"
+            role="region"
+            aria-label="Project grid"
+          >
+            {projects.map((project, index) => (
+              <Card
+                key={index}
+                className="project-card flex-shrink-0 w-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:bg-gradient-to-br hover:from-primary/5 group relative overflow-hidden"
+                style={{
+                  animationDelay: `${index * 0.2}s`,
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+                }}
+              >
+                <div className="project-card-inner h-full">
+                  {/* Project Image and Title */}
+                  <div
+                    className="relative h-48 overflow-hidden cursor-zoom-in group-hover:brightness-110"
+                    onClick={() => setZoomProject(index)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setZoomProject(index)}
+                  >
+                    <img
+                      src={project.image}
+                      alt={`${project.title} Blueprint`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4 transition-opacity duration-500 group-hover:opacity-100 opacity-90">
+                      <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
                     </div>
                   </div>
-                </Card>
-              ))}
-            </div>
-            {/* Navigation Buttons */}
-            <button
-              onClick={scrollLeft}
-              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-background/95 hover:bg-background text-foreground p-2 rounded-full shadow-lg z-10 transition-all duration-200 hover:scale-110"
-              aria-label="Previous project"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-background/95 hover:bg-background text-foreground p-2 rounded-full shadow-lg z-10 transition-all duration-200 hover:scale-110"
-              aria-label="Next project"
-            >
-              <ChevronRight size={20} />
-            </button>
+                  {/* Project Details */}
+                  <div className="p-4 sm:p-6 space-y-4 flex-1">
+                    <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
+                      {project.role}
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30 transition-colors group-hover:bg-primary/20 group-hover:text-primary group-hover:border-primary/30"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    {/* Outcome Section */}
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
+                      <p className="text-sm text-muted-foreground line-clamp-3">{project.outcome}</p>
+                    </div>
+                    {/* Links */}
+                    <div className="space-y-3 pt-4">
+                      <a
+                        href={project.mediumLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
+                      >
+                        <ExternalLink size={16} />
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
           {/* View All Projects Link */}
-          <div className="mt-12 text-center animate-fade-in">
+          <div className="mt-16 text-center animate-fade-in">
             <a
               href="https://medium.com/@elijahchimera01"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-lg font-semibold text-gradient hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 text-xl font-semibold text-gradient hover:opacity-80 transition-opacity"
             >
               View All Projects on Medium
               <ExternalLink size={20} />
