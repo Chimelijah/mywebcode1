@@ -89,16 +89,16 @@ const About = () => {
           {/* Content */}
           <div className="space-y-8 text-muted-foreground">
             <div className="space-y-4">
-              <p className="text-sm uppercase tracking-[0.45em] text-primary">Compliance-Driven Engineering</p>
+              <p className="text-sm uppercase tracking-[0.45em] text-primary">Architecture, Automation, and Imagination</p>
               <h2 className="text-3xl md:text-4xl font-serif text-foreground leading-tight">
-                ☁️ Elijah Chimera: The Compliance-Driven Cloud Architect
+              The Intersection of Cloud Architecture and Cyber Defense
               </h2>
               <p className="text-lg text-foreground/90 leading-relaxed">
                 I am a results-oriented technology professional specializing in{" "}
                 <strong>Cloud Architecture, Cybersecurity, and AI</strong>. My mission is to bridge technical agility
-                with regulatory rigor—building systems that are <strong>highly scalable</strong>,{" "}
-                <strong>secure by design</strong>, and <strong>compliant from day one</strong>. My disciplined
-                methodology and governance mindset enable me to solve complex challenges with precision.
+                with regulatory rigorbuilding systems that are <strong>highly scalable</strong>,{" "}
+                <strong>secure by design</strong>, and <strong>compliant with industry standards</strong>. My collaborative and iterative exploration
+                methodology and curious guardian mindset enable me to ensure teams innovate securely and scale with precision.
               </p>
               <p className="text-base leading-relaxed">
                 I pair security-first architecture with continuous improvement, ensuring automation, repeatability, and
