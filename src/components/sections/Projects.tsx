@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ExternalLink, Github, X } from "lucide-react";
+import { useState, useRef } from "react";
+import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cloudNetworkEnhanced from "@/assets/cloud-network-enhanced.jpg";
 import projectBlueprintDesk from "@/assets/project-blueprint-desk.jpg";
@@ -17,6 +17,7 @@ const Projects = () => {
   const { ref: projectsRef, isVisible } = useScrollAnimation(0.1);
   const parallaxRef = useParallax(0.25);
   const [zoomProject, setZoomProject] = useState<number | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
  
   const projects = [
     {
@@ -65,6 +66,19 @@ const Projects = () => {
       mediumLink: "https://medium.com/@elijahchimera01/building-a-database-with-cursor-and-supabase-mcp-b8e935f8f3a7",
     }
   ];
+
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="projects" className="py-24 relative" ref={projectsRef}>
       {/* Cloud Network Banner with Parallax */}
@@ -90,81 +104,99 @@ const Projects = () => {
             </p>
           </div>
           {/* Projects Carousel */}
-          <div
-            className="projects-carousel flex gap-4 sm:gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide"
-            role="region"
-            aria-label="Project carousel"
-          >
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="project-card snap-center flex-shrink-0 w-full sm:w-[280px] md:w-[320px] max-w-sm transition-all duration-500 hover:shadow-xl group"
-                style={{
-                  animationDelay: `${index * 0.2}s`,
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
-                }}
-              >
-                <div className="project-card-inner h-full">
-                  {/* Front */}
-                  <div className="project-card-face project-card-front">
-                    <div
-                      className="relative h-48 overflow-hidden cursor-zoom-in"
-                      onClick={() => setZoomProject(index)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === 'Enter' && setZoomProject(index)}
-                    >
-                      <img
-                        src={project.image}
-                        alt={`${project.title} Blueprint`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
-                        <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
+          <div className="relative">
+            <div
+              ref={carouselRef}
+              className="projects-carousel flex gap-4 sm:gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scroll-smooth scrollbar-hide"
+              role="region"
+              aria-label="Project carousel"
+            >
+              {projects.map((project, index) => (
+                <Card
+                  key={index}
+                  className="project-card snap-center flex-shrink-0 w-full sm:w-[280px] md:w-[320px] max-w-sm transition-all duration-500 hover:shadow-xl group"
+                  style={{
+                    animationDelay: `${index * 0.2}s`,
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+                  }}
+                >
+                  <div className="project-card-inner h-full">
+                    {/* Front */}
+                    <div className="project-card-face project-card-front">
+                      <div
+                        className="relative h-48 overflow-hidden cursor-zoom-in"
+                        onClick={() => setZoomProject(index)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && setZoomProject(index)}
+                      >
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Blueprint`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
+                          <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
+                        </div>
+                      </div>
+                      <div className="flex-1 p-4 sm:p-6 space-y-4">
+                        <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
+                          {project.role}
+                        </div>
+                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex-1 p-4 sm:p-6 space-y-4">
-                      <div className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold border border-primary/30">
-                        {project.role}
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
+                    {/* Back */}
+                    <div className="project-card-face project-card-back">
+                      <div className="p-4 sm:p-6 flex flex-col h-full justify-between space-y-4">
+                        <div>
+                          <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
+                          <p className="text-sm text-muted-foreground line-clamp-4">{project.outcome}</p>
+                        </div>
+                        <div className="space-y-3">
+                          <a
+                            href={project.mediumLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
                           >
-                            {tech}
-                          </span>
-                        ))}
+                            <ExternalLink size={16} />
+                            Read More
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  {/* Back */}
-                  <div className="project-card-face project-card-back">
-                    <div className="p-4 sm:p-6 flex flex-col h-full justify-between space-y-4">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.35em] text-primary mb-2">Outcome</p>
-                        <p className="text-sm text-muted-foreground line-clamp-4">{project.outcome}</p>
-                      </div>
-                      <div className="space-y-3">
-                        <a
-                          href={project.mediumLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold"
-                        >
-                          <ExternalLink size={16} />
-                          Read More
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
+            </div>
+            {/* Navigation Buttons */}
+            <button
+              onClick={scrollLeft}
+              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-background/95 hover:bg-background text-foreground p-2 rounded-full shadow-lg z-10 transition-all duration-200 hover:scale-110"
+              aria-label="Previous project"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-background/95 hover:bg-background text-foreground p-2 rounded-full shadow-lg z-10 transition-all duration-200 hover:scale-110"
+              aria-label="Next project"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
           {/* View All Projects Link */}
           <div className="mt-12 text-center animate-fade-in">
