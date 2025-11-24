@@ -98,7 +98,7 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="project-card flex-shrink-0 w-full group relative overflow-hidden"
+                className="project-card flex-shrink-0 w-full transition-all duration-500 group relative overflow-hidden"
                 style={{
                   animationDelay: `${index * 0.2}s`,
                   opacity: isVisible ? 1 : 0,
@@ -108,7 +108,7 @@ const Projects = () => {
                 <div className="project-card-inner h-full">
                   {/* Project Image and Title */}
                   <div
-                    className="relative h-48 overflow-hidden cursor-zoom-in"
+                    className="relative h-48 overflow-hidden cursor-zoom-in group-hover:brightness-110"
                     onClick={() => setZoomProject(index)}
                     role="button"
                     tabIndex={0}
@@ -117,10 +117,10 @@ const Projects = () => {
                     <img
                       src={project.image}
                       alt={`${project.title} Blueprint`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-yellow-400 py-2 px-4 transition-opacity duration-500 group-hover:opacity-100 opacity-90">
                       <h3 className="font-bold text-background text-sm line-clamp-2">{project.title}</h3>
                     </div>
                   </div>
@@ -134,7 +134,7 @@ const Projects = () => {
                       {project.technologies.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-2 py-1 rounded-md bg-secondary/20 text-secondary text-xs border border-secondary/30"
+                          className="px-2 py-1 rounded-md bg-neutral-700 text-gray-200 text-xs border border-neutral-600 font-medium"
                         >
                           {tech}
                         </span>
