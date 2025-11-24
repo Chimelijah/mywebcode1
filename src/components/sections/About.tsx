@@ -42,7 +42,7 @@ const focusAreas = [
   },
   {
     domain: "DevOps & IaC",
-    detail: "Standing up CI/CD pipelines, container orchestration, and IaC automation.",
+    detail: "Setting up CI/CD pipelines, container orchestration, and IaC automation.",
     badge: "Docker • Kubernetes • Terraform",
   },
   {
@@ -169,10 +169,6 @@ const About = () => {
 
             <div className="rounded-3xl border border-primary/30 bg-gradient-to-r from-primary/10 to-transparent p-6 text-center text-white">
               <h3 className="text-2xl font-semibold mb-3">Looking for a Security-First Cloud Engineer?</h3>
-              <p className="text-sm md:text-base text-white/80 mb-5">
-                I am pursuing entry-to-mid-level roles in DevSecOps, Security Engineering, or Cloud Architecture—
-                bringing the speed of a passionate technologist with the rigor of a compliance lead.
-              </p>
               <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
                 <span className="px-4 py-2 rounded-full bg-white/10 text-white">DevSecOps</span>
                 <span className="px-4 py-2 rounded-full bg-white/10 text-white">Security Engineering</span>
